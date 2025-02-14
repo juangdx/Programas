@@ -1,0 +1,12 @@
+
+/*
+* Descripción: Programa que saluda al usuario con el mensaje Hola Mundo 3 *
+*/
+
+#include <stdio.h>
+// la función main inicia la ejecución del programa 
+
+int main(void) 
+{
+printf("Hola mundo ");
+} // fin de la función main
