@@ -18,3 +18,6 @@ jobs:
 
       - name: Ejecutar programa
         run: echo "Entradas que necesite tu programa" | ./Correlacion
+
+        - name: Ejecutar programa
+        run: echo "10\n1 2\n3 4\n5 6\n7 8\n9 10\n11 12\n13 14\n15 16\n17 18\n19 20" | ./Correlacion
