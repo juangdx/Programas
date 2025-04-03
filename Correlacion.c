@@ -37,11 +37,11 @@ int main (){
 	Para que devuelva la división decimal, o defnimos previamente como double (o float) alguna de las variables que intervienen en la división
 	suma_xi/n, o lo hacemos directamente al definir las variables, como hemos hecho. Así devolverá el resultado de una división decimal y no entera. */ 
 	
-	media_x = double (suma_xi)/n; 
-	media_y = double (suma_yi)/n;
-	varianza_x = double (suma_xi2)/n - media_x*media_x;
-	varianza_y = double (suma_yi2)/n - media_y*media_y;
-	covarianza = double (suma_xiyi)/n - media_x*media_y;
+	media_x = (double) (suma_xi)/n; 
+	media_y = (double) (suma_yi)/n;
+	varianza_x = (double) (suma_xi2)/n - media_x*media_x;
+	varianza_y = (double) (suma_yi2)/n - media_y*media_y;
+	covarianza = (double) (suma_xiyi)/n - media_x*media_y;
 	correlacion = covarianza/(sqrt(varianza_x)*sqrt(varianza_y));
 	
 	printf("Suma xi = %d   Suma yi = %d   Suma xi2 = %d   Suma yi2 = %d   Suma xiyi = %d\n", suma_xi, suma_yi, suma_xi2, suma_yi2, suma_xiyi);
