@@ -1,0 +1,39 @@
+name: Pruebas Automáticas C
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Instalar compilador GCC
+      run: sudo apt-get install -y gcc
+
+    - name: Compilar el programa
+      run: gcc SumarEnterosPR.c -o SumarEnterosPR
+
+    - name: Ejecutar Pruebas Automáticas
+      run: |
+        echo "Inicio pruebas"
+        while IFS='|' read -r entrada esperado resto; do
+          # Limpiar espacios en blanco
+          entrada=$(echo $entrada | xargs)
+          esperado=$(echo $esperado | xargs)
+          
+          if [ -z "$entrada" ]; then continue; fi
+          
+          # Ejecutamos el programa pasando la entrada y filtrando mensajes amigables
+          # Capturamos solo lo que sale del PRINT_TEST
+          actual=$(echo $entrada | ./SumarEnterosPR | grep -v "Dame el" | grep -v "La suma es" | grep -v "Inicio pruebas" | grep -v "Fin pruebas" | xargs)
+          
+          if [ "$actual" = "$esperado" ]; then
+            echo "---PASA: Salida Correcta para entrada '$entrada'"
+          else
+            echo "---FALLA: Para entrada '$entrada', se esperaba '$esperado' pero se obtuvo '$actual'"
+            exit 1
+          fi
+        done < SumarEnterosPRTest.txt
+        echo "Se pasan todas las pruebas."
