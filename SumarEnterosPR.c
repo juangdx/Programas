@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include ".vscode/prueba/TEST.h"
+#include ".vscode/test/TEST.h"
 
 // inicia ejecución en main
 int main(void)
