@@ -13,20 +13,23 @@ jobs:
       run: sudo apt-get install -y gcc
 
     - name: Compilar el programa
-      run: gcc SumarEnterosPR.c -o SumarEnterosPR
+      # El parámetro -I. le dice a GCC que busque archivos .h en todo el repo
+      run: gcc -I. SumarEnterosPR.c -o SumarEnterosPR
 
     - name: Ejecutar Pruebas Automáticas
       run: |
         echo "Inicio pruebas"
+        # Leemos el archivo de test línea a línea
         while IFS='|' read -r entrada esperado resto; do
-          # Limpiar espacios en blanco
+          # Limpiamos espacios en blanco de las variables
           entrada=$(echo $entrada | xargs)
           esperado=$(echo $esperado | xargs)
           
+          # Si la línea está vacía, saltamos
           if [ -z "$entrada" ]; then continue; fi
           
-          # Ejecutamos el programa pasando la entrada y filtrando mensajes amigables
-          # Capturamos solo lo que sale del PRINT_TEST
+          # Ejecutamos el programa pasando la entrada. 
+          # Filtramos los mensajes de texto para quedarnos solo con el número del PRINT_TEST
           actual=$(echo $entrada | ./SumarEnterosPR | grep -v "Dame el" | grep -v "La suma es" | grep -v "Inicio pruebas" | grep -v "Fin pruebas" | xargs)
           
           if [ "$actual" = "$esperado" ]; then
